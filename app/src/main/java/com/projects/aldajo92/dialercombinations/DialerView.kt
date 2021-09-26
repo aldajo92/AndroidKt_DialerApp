@@ -34,11 +34,23 @@ class DialerView @JvmOverloads constructor(
     private var currentHeight = 0
     private var currentRadius = 0f
 
+    private var halfWidth = 0f
+    private var halfHeight = 0f
+
+    private var r1 = 200
+    private var r2 = 400
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         currentWidth = w
         currentHeight = h
         currentRadius = min(w, h) / 2f
+
+        halfWidth = currentWidth / 2f
+        halfHeight = currentHeight / 2f
+
+        r1 = (currentRadius * 0.8).toInt()
+        r2 = currentRadius.toInt()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -49,8 +61,10 @@ class DialerView @JvmOverloads constructor(
         val y = availableHeight / 2
         canvas.save()
         rotorDrawable?.setBounds(
-            0, 0, rotorDrawable!!.intrinsicWidth,
-            rotorDrawable!!.intrinsicHeight
+            (halfWidth - currentRadius).toInt(),
+            (halfHeight - currentRadius).toInt(),
+            (halfWidth + currentRadius).toInt(),
+            (halfHeight + currentRadius).toInt()
         )
         if (rotorAngle != 0f) {
             canvas.rotate(rotorAngle, x.toFloat(), y.toFloat())
