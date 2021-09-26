@@ -81,12 +81,11 @@
         android:enabled="true"
         android:focusableInTouchMode="false"
         android:scrollbars="vertical"
-        android:visibility="gone"
         android:verticalScrollbarPosition="right"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal"
-        tools:text="pablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito pablito palpablito palpablito pablito pal" />
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
