@@ -1,5 +1,7 @@
 package com.projects.aldajo92.dialercombinations
 
+import com.projects.aldajo92.dialercombinations.domain.CombinationDialImpl
+import com.projects.aldajo92.dialercombinations.domain.stringToListString
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

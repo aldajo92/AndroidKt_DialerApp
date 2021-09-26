@@ -1,4 +1,4 @@
-package com.projects.aldajo92.dialercombinations
+package com.projects.aldajo92.dialercombinations.domain
 
 interface CombinationDial {
 

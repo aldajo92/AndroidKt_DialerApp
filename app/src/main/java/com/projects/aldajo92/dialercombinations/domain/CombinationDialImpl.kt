@@ -1,4 +1,4 @@
-package com.projects.aldajo92.dialercombinations
+package com.projects.aldajo92.dialercombinations.domain
 
 class CombinationDialImpl(private val hashMap: Map<Int, String>) : CombinationDial {
 

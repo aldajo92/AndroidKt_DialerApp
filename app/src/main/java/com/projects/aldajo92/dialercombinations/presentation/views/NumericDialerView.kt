@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
 import kotlin.math.atan
 import kotlin.math.min
 
@@ -47,15 +48,26 @@ class NumericDialerView @JvmOverloads constructor(
         }
     }
 
+    private val drawableBackground by lazy {
+        ContextCompat.getDrawable(context, R.drawable.dial_numbers)
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
+        drawableBackground?.setBounds(
+            (halfWidth - currentRadius).toInt(),
+            (halfHeight - currentRadius).toInt(),
+            (halfWidth + currentRadius).toInt(),
+            (halfHeight + currentRadius).toInt(),
+        )
         canvas?.let {
             val textAdjustHeight = ((canvasPaint.descent() + canvasPaint.ascent()) / 2)
 
             if (rotorAngle != 0f) {
                 canvas.rotate(rotorAngle, halfWidth, halfHeight)
             }
+
+            drawableBackground?.draw(it)
 
             it.drawCircle(halfWidth, halfHeight, currentRadius, canvasPaint)
             it.translate(halfWidth, halfHeight)
