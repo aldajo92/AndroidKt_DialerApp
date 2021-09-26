@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), NumericDialListener {
         binding.buttonDelete.setOnClickListener {
             binding.textViewDialer.text = ""
             binding.editTextResult.setText("")
+            binding.editTextResult.visibility = View.GONE
         }
         setContentView(binding.root)
     }
