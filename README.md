@@ -10,5 +10,8 @@ To run all test created for this project, run the following command in terminal:
 $ ./gradlew test
 ```
 
+## Build Validation ##
+This project contains a github action to validate the app build and tests.
+
 ## Author ##
 Alejandro Daniel José Gómez Flórez (@aldajo92)
