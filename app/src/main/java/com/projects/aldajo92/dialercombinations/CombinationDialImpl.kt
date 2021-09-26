@@ -1,6 +1,6 @@
 package com.projects.aldajo92.dialercombinations
 
-class CombinationImpl(val hashMap: Map<Int, String>) : CombinationDial {
+class CombinationDialImpl(val hashMap: Map<Int, String>) : CombinationDial {
 
     override fun getAllCombinationList(listNumbers: List<Int>) =
         if (listNumbers.isEmpty()) emptyList() else

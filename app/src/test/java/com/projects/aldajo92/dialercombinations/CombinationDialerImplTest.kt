@@ -5,9 +5,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class CombinationImplTest {
+class CombinationDialerImplTest {
 
-    private lateinit var permutation: CombinationImpl
+    private lateinit var permutation: CombinationDialImpl
 
     @Before
     fun setup() {
@@ -17,7 +17,7 @@ class CombinationImplTest {
             index to data
         }.toMap()
 
-        permutation = CombinationImpl(mapValues)
+        permutation = CombinationDialImpl(mapValues)
     }
 
     @Test
