@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.google.android.material.internal.ContextUtils.getActivity
 import kotlin.math.atan
 import kotlin.math.min
 
@@ -50,7 +49,7 @@ class NumericDialerView @JvmOverloads constructor(
     }
 
     private val drawableBackground by lazy {
-        ContextCompat.getDrawable(context, R.drawable.dial_number_background)
+        ContextCompat.getDrawable(context, R.drawable.dial_numbers)
     }
 
     override fun onDraw(canvas: Canvas?) {
