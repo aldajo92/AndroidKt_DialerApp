@@ -81,6 +81,7 @@
         android:enabled="true"
         android:focusableInTouchMode="false"
         android:scrollbars="vertical"
+        android:visibility="gone"
         android:verticalScrollbarPosition="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
