@@ -5,13 +5,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import kotlin.math.abs
 import kotlin.math.atan
 import kotlin.math.min
-import kotlin.math.roundToInt
 
 class NumericDialerView @JvmOverloads constructor(
     context: Context,
@@ -19,6 +16,8 @@ class NumericDialerView @JvmOverloads constructor(
     defStyle: Int = 0
 ) :
     View(context, attrs, defStyle) {
+
+    private var listener: NumericDialListener? = null
 
     private var currentWidth = 0
     private var currentHeight = 0
@@ -33,10 +32,10 @@ class NumericDialerView @JvmOverloads constructor(
         1, 2, 3, 4, 5, 6, 7, 8, 9, 0
     ).reversed()
 
-    // User rotation
+    private val degreeSteps = CIRCLE_DEGREE / (padsList.size + HIDDEN_CIRCLES)
+
     private var rotorAngle = 0f
-    private var lastFi = 0.0
-    private var startFi = 0.0
+    private var startFi = 0f
 
     private val canvasPaint by lazy {
         Paint().apply {
@@ -52,33 +51,26 @@ class NumericDialerView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         canvas?.let {
-            val hiddenNumbers = 3
-            val textSize = currentRadius * 0.1f // TODO: Convert it as variable
             val textAdjustHeight = ((canvasPaint.descent() + canvasPaint.ascent()) / 2)
 
             if (rotorAngle != 0f) {
                 canvas.rotate(rotorAngle, halfWidth, halfHeight)
             }
 
-//            it.drawLine(0f, halfHeight, currentWidth.toFloat(), halfHeight, canvasPaint)
-//            it.drawLine(halfWidth, 0f, halfWidth, currentHeight.toFloat(), canvasPaint)
-
-
             it.drawCircle(halfWidth, halfHeight, currentRadius, canvasPaint)
             it.translate(halfWidth, halfHeight)
 
-            val degreeSteps = 360f / (padsList.size + hiddenNumbers)
-            for (i in 0..(padsList.size + hiddenNumbers)) {
+            for (i in 0..(padsList.size + HIDDEN_CIRCLES)) {
                 if (i < padsList.size) {
 
                     it.drawCircle(
                         0f,
-                        currentRadius * 0.7f,
+                        currentRadius * 0.75f,
                         currentRadius * ratioInnerCircles,
                         canvasPaint
                     )
 
-                    it.translate(0f, currentRadius * 0.7f)
+                    it.translate(0f, currentRadius * 0.75f)
                     it.rotate(-i * degreeSteps)
                     it.drawText(
                         padsList[i].toString(),
@@ -87,20 +79,13 @@ class NumericDialerView @JvmOverloads constructor(
                         canvasPaint
                     )
                     it.rotate(i * degreeSteps)
-                    it.translate(0f, -currentRadius * 0.7f)
+                    it.translate(0f, -currentRadius * 0.75f)
 
-                    it.rotate(360f / (padsList.size + hiddenNumbers))
+                    it.rotate(CIRCLE_DEGREE / (padsList.size + HIDDEN_CIRCLES))
                 }
             }
 
-            it.rotate(-padsList.size * 360f / (padsList.size + hiddenNumbers))
-
-//            it.drawText(
-//                "1",
-//                0f,
-//                -textAdjustHeight,
-//                canvasPaint
-//            )
+            it.rotate(-padsList.size * CIRCLE_DEGREE / (padsList.size + HIDDEN_CIRCLES))
         }
     }
 
@@ -124,41 +109,24 @@ class NumericDialerView @JvmOverloads constructor(
         val y = y1 - y0
 
         val tanFi = (y / x).toDouble()
-        var fi = Math.toDegrees(atan(tanFi))
-
-        if (x < 0) {
-            fi += 180
-        }
+        var fi = Math.toDegrees(atan(tanFi)).toFloat().fixAngleDegreeAxis(x)
 
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
-                rotorAngle = (fi - startFi).toFloat()
-//                rotorAngle += abs(fi - lastFi).toFloat() + 0.25f
-                rotorAngle %= 360
-//                lastFi = fi
-                Log.i("alejandrogomez", "x:$x, y:$y, Fi: $fi")
+                rotorAngle = (fi - startFi) % CIRCLE_DEGREE
                 invalidate()
                 return true
             }
             MotionEvent.ACTION_DOWN -> {
-                lastFi = fi
                 startFi = fi
-                Log.i("alejandrogomez", "Start Fi: $fi")
                 return true
             }
             MotionEvent.ACTION_UP -> {
-
-                if (abs(fi-ACTIVATION_ANGLE) < DELTA_ACTIVATION){
-                    Log.i("alejandroGomez", "dial activated")
-                }
-
-                val angle = abs(rotorAngle % 360)
-                var number = (angle - 20).roundToInt() / 30
-                if (number > 0) {
-//                    if (number == 10) {
-//                        number = 0
-//                    }
-//                    fireDialListenerEvent(number)
+                val rotation = if (rotorAngle < 0) CIRCLE_DEGREE + rotorAngle else rotorAngle
+                val number = (rotation / degreeSteps).toInt()
+                if (number in 1..10) {
+                    val triggerNumber = if (number == 10) 0 else number
+                    listener?.onDialNumberListener(triggerNumber)
                 }
                 rotorAngle = 0f
                 invalidate()
@@ -168,9 +136,19 @@ class NumericDialerView @JvmOverloads constructor(
         return super.onTouchEvent(event)
     }
 
-    companion object {
-        const val ACTIVATION_ANGLE = 30
-        const val DELTA_ACTIVATION = 5
+    fun setNumericDialListener(listener: NumericDialListener) {
+        this.listener = listener
     }
 
+    companion object {
+        const val HIDDEN_CIRCLES = 3
+        const val CIRCLE_DEGREE = 360f
+    }
+
+}
+
+fun Float.fixAngleDegreeAxis(x: Float) = if (x < 0) this + 180 else this
+
+interface NumericDialListener {
+    fun onDialNumberListener(number: Int)
 }

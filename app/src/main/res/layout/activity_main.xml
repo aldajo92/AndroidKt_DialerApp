@@ -6,28 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<!--    <com.projects.aldajo92.dialercombinations.DialerView-->
-<!--        android:id="@+id/dialerView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        tools:background="@drawable/dialer" />-->
-
     <ImageView
         android:id="@+id/dialerViewTop"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/dialer_top"
-        app:layout_constraintBottom_toBottomOf="@id/dialerView2"
-        app:layout_constraintEnd_toEndOf="@id/dialerView2"
-        app:layout_constraintStart_toStartOf="@id/dialerView2"
-        app:layout_constraintTop_toTopOf="@+id/dialerView2" />
+        app:layout_constraintBottom_toBottomOf="@id/dialerView"
+        app:layout_constraintEnd_toEndOf="@id/dialerView"
+        app:layout_constraintStart_toStartOf="@id/dialerView"
+        app:layout_constraintTop_toTopOf="@+id/dialerView" />
 
     <com.projects.aldajo92.dialercombinations.NumericDialerView
-        android:id="@+id/dialerView2"
+        android:id="@+id/dialerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
