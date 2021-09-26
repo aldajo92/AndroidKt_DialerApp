@@ -4,14 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.7" />
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/dialerViewTop"
@@ -21,21 +36,17 @@
         app:layout_constraintBottom_toBottomOf="@id/dialerView"
         app:layout_constraintEnd_toEndOf="@id/dialerView"
         app:layout_constraintStart_toStartOf="@id/dialerView"
-        app:layout_constraintTop_toTopOf="@+id/dialerView" />
-
+        app:layout_constraintTop_toBottomOf="@id/textView_title" />
 
     <TextView
         android:id="@+id/textView_dialer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="20dp"
         android:gravity="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintBottom_toTopOf="@id/editText_result"
-        app:layout_constraintEnd_toStartOf="@id/button_calculate"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialerView"
         tools:text="123" />
@@ -44,36 +55,37 @@
         android:id="@+id/dialerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@id/textView_dialer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button_calculate"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="calculate"
-        app:layout_constraintBottom_toBottomOf="@id/textView_dialer"
         app:layout_constraintEnd_toStartOf="@id/button_delete"
-        app:layout_constraintStart_toEndOf="@id/textView_dialer"
-        app:layout_constraintTop_toTopOf="@id/textView_dialer" />
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_dialer" />
 
     <Button
         android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="delete"
-        app:layout_constraintBottom_toBottomOf="@id/textView_dialer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button_calculate"
-        app:layout_constraintTop_toTopOf="@id/textView_dialer" />
+        app:layout_constraintTop_toBottomOf="@id/textView_dialer" />
 
     <EditText
         android:id="@+id/editText_result"
@@ -87,6 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal" />
+        app:layout_constraintTop_toBottomOf="@+id/button_calculate"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

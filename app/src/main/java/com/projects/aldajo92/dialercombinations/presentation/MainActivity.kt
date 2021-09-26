@@ -1,9 +1,12 @@
-package com.projects.aldajo92.dialercombinations
+package com.projects.aldajo92.dialercombinations.presentation
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.projects.aldajo92.dialercombinations.NumericDialListener
+import com.projects.aldajo92.dialercombinations.NumericDialerView
 import com.projects.aldajo92.dialercombinations.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), NumericDialListener {
@@ -12,23 +15,7 @@ class MainActivity : AppCompatActivity(), NumericDialListener {
 
     private lateinit var dialerView: NumericDialerView
 
-    // TODO: Temporal solution
-    private val mapValues = listOf(
-        "",
-        "",
-        "ABC",
-        "DEF",
-        "GHI",
-        "JKL",
-        "MNO",
-        "PRS",
-        "TUV",
-        "WXY"
-    ).mapIndexed { index, data ->
-        index to data
-    }.toMap()
-
-    private val combinationDial: CombinationDial = CombinationDialImpl(mapValues)
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +25,13 @@ class MainActivity : AppCompatActivity(), NumericDialListener {
             this.setNumericDialListener(this@MainActivity)
         }
 
-        binding.buttonCalculate.setOnClickListener {
-            val listIntegers = binding.textViewDialer.text.map {
-                it.toString().toInt()
-            }
-            val result = combinationDial.getAllCombinationList(listIntegers)
-            binding.editTextResult.setText(result.toString())
+        viewModel.calculationResultLiveData.observe(this, {
+            binding.editTextResult.setText(it)
             binding.editTextResult.visibility = View.VISIBLE
+        })
+
+        binding.buttonCalculate.setOnClickListener {
+            viewModel.calculateCombinations(binding.textViewDialer.text.toString())
         }
 
         binding.buttonDelete.setOnClickListener {
