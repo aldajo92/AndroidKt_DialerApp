@@ -1,4 +1,6 @@
-# Android.Dialer App #
+# Android Dialer App #
+
+<img src=".media/demoDialer.gif" alt="Drawing" style="width: 300px;"/>
 
 ## Combination Dialer Algorithm ##
 The algorithm used to calculate all possible combinations from a dialer input. It is defined in the class `CombinationDialImpl` as the implementation of `CombinationDial`. The Algorithm was tested with the class `CombinationDialerImplTest`.
