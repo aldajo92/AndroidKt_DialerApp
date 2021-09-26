@@ -37,7 +37,9 @@ class MainViewModel : ViewModel() {
             val listIntegers = valueString.map {
                 it.toString().toInt()
             }
-            val result = combinationDial.getAllCombinationList(listIntegers).toString()
+            val result = combinationDial.getAllCombinationList(listIntegers).reduce { total, item ->
+                "$total \t$item"
+            }
             _calculationResultLiveData.postValue(result)
         }
     }
