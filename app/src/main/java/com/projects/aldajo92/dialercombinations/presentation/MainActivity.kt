@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), NumericDialListener {
 
     private lateinit var dialerView: NumericDialerView
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels { ViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
