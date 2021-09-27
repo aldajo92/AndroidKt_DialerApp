@@ -1,4 +1,4 @@
-package com.projects.aldajo92.dialercombinations.presentation
+package com.projects.aldajo92.dialercombinations.presentation.main
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.projects.aldajo92.dialercombinations.NumericDialListener
 import com.projects.aldajo92.dialercombinations.NumericDialerView
 import com.projects.aldajo92.dialercombinations.databinding.ActivityMainBinding
+import com.projects.aldajo92.dialercombinations.presentation.ViewModelFactory
 
 class MainActivity : AppCompatActivity(), NumericDialListener {
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity(), NumericDialListener {
 
     private lateinit var dialerView: NumericDialerView
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels { ViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

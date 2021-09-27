@@ -2,7 +2,7 @@ package com.projects.aldajo92.dialercombinations.domain
 
 class CombinationDialImpl(private val hashMap: Map<Int, String>) : CombinationDial {
 
-    override fun getAllCombinationList(listNumbers: List<Int>) =
+    override suspend fun getAllCombinationList(listNumbers: List<Int>) =
         if (listNumbers.isEmpty()) emptyList() else
             listNumbers.mapNotNull {
                 hashMap[it]?.stringToListString()
