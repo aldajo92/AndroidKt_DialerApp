@@ -1,4 +1,4 @@
-package com.projects.aldajo92.dialercombinations.presentation
+package com.projects.aldajo92.dialercombinations.presentation.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,6 @@ class MainViewModel(private val combinationDial: CombinationDial) : ViewModel() 
 
     private val _calculationResultLiveData = MutableLiveData<String>()
     val calculationResultLiveData: LiveData<String> get() = _calculationResultLiveData
-
 
     fun calculateCombinations(valueString: String) {
         viewModelScope.launch {

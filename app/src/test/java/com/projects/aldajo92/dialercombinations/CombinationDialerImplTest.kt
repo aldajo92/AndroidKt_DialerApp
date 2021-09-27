@@ -1,21 +1,28 @@
 package com.projects.aldajo92.dialercombinations
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.projects.aldajo92.dialercombinations.domain.CombinationDialImpl
 import com.projects.aldajo92.dialercombinations.domain.stringToListString
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class CombinationDialerImplTest {
 
     private lateinit var permutation: CombinationDialImpl
 
+    @Rule
+    @JvmField
+    val instantExecutorRule = InstantTaskExecutorRule()
+
     @Before
     fun setup() {
         val listDial = listOf("", "", "ABC", "DEF", "GHI", "JKL", "MNO", "PRS", "TUV", "WXY")
 
-        val mapValues = listDial.mapIndexed{ index, data ->
+        val mapValues = listDial.mapIndexed { index, data ->
             index to data
         }.toMap()
 
@@ -23,7 +30,7 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun testGetAllCombinationList_InputSize1_NumbersDifferentToOneAndZero() {
+    fun testGetAllCombinationList_InputSize1_NumbersDifferentToOneAndZero() = runBlocking {
         val input = listOf(2)
         val output = listOf(
             "A", "B", "C"
@@ -36,8 +43,8 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun testGetAllCombinationList_InputSize2_NumbersDifferentToOneAndZero() {
-        val input = listOf(3,4)
+    fun testGetAllCombinationList_InputSize2_NumbersDifferentToOneAndZero() = runBlocking {
+        val input = listOf(3, 4)
         val output = listOf(
             "DG", "DH", "DI",
             "EG", "EH", "EI",
@@ -51,8 +58,8 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun testGetAllCombinationList_InputSize3_NumbersDifferentToOneAndZero() {
-        val input = listOf(2,3,4)
+    fun testGetAllCombinationList_InputSize3_NumbersDifferentToOneAndZero() = runBlocking {
+        val input = listOf(2, 3, 4)
         val output = listOf(
             "ADG", "ADH", "ADI",
             "AEG", "AEH", "AEI",
@@ -72,7 +79,7 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun when_inputIsEmpty_then_testGetAllCombinationList_returnsEmptyList() {
+    fun when_inputIsEmpty_then_testGetAllCombinationList_returnsEmptyList() = runBlocking {
         val input = emptyList<Int>()
         val result = permutation.getAllCombinationList(input)
 
@@ -80,15 +87,15 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun whenCombinationIsOnes_then_itReturnsEmptyList() {
-        val input = listOf(1,1,1)
+    fun whenCombinationIsOnes_then_itReturnsEmptyList() = runBlocking {
+        val input = listOf(1, 1, 1)
         val result = permutation.getAllCombinationList(input)
 
         assertEquals(emptyList<String>(), result)
     }
 
     @Test
-    fun tesCombinationStringToListString(){
+    fun tesCombinationStringToListString() {
         val input = "A"
         val inputList = listOf("BC", "BD")
         val result = permutation.combineStringToListString(input, inputList)
@@ -96,7 +103,7 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun whenInputIsEmpty_then_combinationStringToListStringReturnsTheInputList(){
+    fun whenInputIsEmpty_then_combinationStringToListStringReturnsTheInputList() {
         val input = ""
         val inputList = listOf("BC", "BD")
         val result = permutation.combineStringToListString(input, inputList)
@@ -104,7 +111,7 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun tesCombinationListStringToListString(){
+    fun tesCombinationListStringToListString() {
         val input = listOf("A", "B")
         val inputList = listOf("CD", "CF")
         val result = permutation.combineListStringToListString(input, inputList)
@@ -112,7 +119,7 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun whenInputStringIsEmpty_thenListStringToListStringIsTheSameInputListString(){
+    fun whenInputStringIsEmpty_thenListStringToListStringIsTheSameInputListString() {
         val input = emptyList<String>()
         val inputList = listOf("CD", "CF")
         val result = permutation.combineListStringToListString(input, inputList)
@@ -120,7 +127,7 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun whenInputListStringIsEmpty_thenListStringToListStringIsTheSameInput(){
+    fun whenInputListStringIsEmpty_thenListStringToListStringIsTheSameInput() {
         val input = listOf("A", "B")
         val inputList = emptyList<String>()
         val result = permutation.combineListStringToListString(input, inputList)
@@ -128,14 +135,14 @@ class CombinationDialerImplTest {
     }
 
     @Test
-    fun testStringToListString(){
+    fun testStringToListString() {
         val input = "ABC"
         val result = input.stringToListString()
         assertEquals(listOf("A", "B", "C"), result)
     }
 
     @Test
-    fun whenStringIsEmpty_thenStringToListStringIsEmpty(){
+    fun whenStringIsEmpty_thenStringToListStringIsEmpty() {
         val input = ""
         val result = input.stringToListString()
         assertEquals(emptyList<String>(), result)

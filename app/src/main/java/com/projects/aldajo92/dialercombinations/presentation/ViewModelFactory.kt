@@ -3,6 +3,7 @@ package com.projects.aldajo92.dialercombinations.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.projects.aldajo92.dialercombinations.domain.CombinationDialImpl
+import com.projects.aldajo92.dialercombinations.presentation.main.MainViewModel
 
 class ViewModelFactory :
     ViewModelProvider.NewInstanceFactory() {
