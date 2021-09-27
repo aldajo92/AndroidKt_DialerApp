@@ -13,7 +13,7 @@ $ ./gradlew test
 ```
 
 ## Build Validation ##
-This project contains a github action to validate the app build and tests.
+This project contains a github action to validate the app build and tests for all [pull request](https://github.com/aldajo92/AndroidKt_DialerApp/pulls?q=is%3Apr+is%3Aclosed) made
 
 ## Author ##
 Alejandro Daniel José Gómez Flórez (@aldajo92)
